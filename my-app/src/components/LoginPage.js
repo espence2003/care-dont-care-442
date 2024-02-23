@@ -25,7 +25,6 @@ export default function SignInPage(props) {
     const logout = onAuthStateChanged(auth, (firebaseUser) => {
       if(firebaseUser){
         setUser(firebaseUser);
-        //<Navigate to="/Quiz" />;
       }
       else {
         setUser(null);
@@ -48,7 +47,7 @@ export default function SignInPage(props) {
   };
 
   if (user) {
-    return <Navigate to="/Home" />;
+    return <Navigate to="/home" />;
   }
 
 
@@ -62,7 +61,7 @@ export default function SignInPage(props) {
         </div>
       ) : (
         <div>
-          <p className="sign-in">Please sign in:</p>
+          <p>Please sign in:</p>
           <StyledFirebaseAuth uiConfig={firebaseUIConfig} firebaseAuth={auth} />
         </div>
       )}
