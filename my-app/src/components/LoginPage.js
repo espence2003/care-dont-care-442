@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { app } from '../firebase-config';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -9,240 +10,73 @@ export default function Login() {
     const navigate = useNavigate();
     const auth = getAuth(app);
 
-    const handleSignUp = async () => {
-        try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            navigate('/home');
-        } catch (error) {
-            console.error(error);
-            alert('Sign Up failed: ' + error.message);
-        }
-    };
+const handleSignUp = async () => {
+    try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        navigate('/home');
+    } catch (error) {
+        console.error(error);
+        alert('Sign Up failed: ' + error.message);
+    }
+};
 
-    const handleLogin = async () => {
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
-            navigate('/home');
-        } catch (error) {
-            console.error(error);
-            alert('Login failed: ' + error.message);
-        }
-    };
+const handleLogin = async () => {
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        navigate('/home');
+    } catch (error) {
+        console.error(error);
+        alert('Login failed: ' + error.message);
+    }
+};
 
-    return (
-        <div>
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-            />
-            <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-            />
-            <button onClick={handleLogin}>Login</button>
-            <button onClick={handleSignUp}>Sign Up</button>
+return (
+    <div>
+        <div className="container-fluid bg-light py-5 vh-100">
+            <div className="row justify-content-center mt-5">
+                <div className="col-md-6">
+                    <h1 className="text-center mb-4">
+                        <span className="text-success fw-bold">Care </span>
+                        <span className="custom-or fw-bold">or</span>
+                        <span className="text-danger fw-bold"> Don't Care</span>
+                    </h1>
+                    <div className="card shadow">
+                        <div className="card-body">
+                            <h3 className="card-title text-center mb-4">Login</h3>
+                            <form>
+                                <div className="mb-3">
+                                    <label htmlFor="email" className="form-label">Email</label>
+                                    <input
+                                        type="email"
+                                        className="form-control"
+                                        id="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder="Enter your email"
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="password" className="form-label">Password</label>
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        id="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        placeholder="Enter your password"
+                                    />
+                                </div>
+                                <div className="d-grid gap-2">
+                                    <button onClick={handleLogin} className="btn btn-danger" type="button">Login</button>
+                                    <button onClick={handleSignUp} className="btn btn-secondary" type="button">Sign Up</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    );
+    </div>
+);
 }
-
-
-// import React, { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import { auth } from '../firebase-config'; // Adjust this import path as necessary
-
-// export const Login = () => {
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     const unsubscribe = auth.onAuthStateChanged(user => {
-//       if (user) {
-//         navigate('/home');
-//       }
-//     });
-//     return () => unsubscribe();
-//   }, [navigate]);
-
-//   const handleLogin = async () => {
-//     try {
-//       await auth.signInWithEmailAndPassword(email, password);
-//       // Redirect is handled by the auth state change listener
-//     } catch (error) {
-//       console.error(error);
-//       alert('Login failed: ' + error.message);
-//     }
-//   };
-
-//   const handleSignUp = async () => {
-//     try {
-//       await auth.createUserWithEmailAndPassword(email, password);
-//       // Redirect is handled by the auth state change listener
-//     } catch (error) {
-//       console.error(error);
-//       alert('Sign Up failed: ' + error.message);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <input
-//         type="email"
-//         value={email}
-//         onChange={(e) => setEmail(e.target.value)}
-//         placeholder="Email"
-//       />
-//       <input
-//         type="password"
-//         value={password}
-//         onChange={(e) => setPassword(e.target.value)}
-//         placeholder="Password"
-//       />
-//       <button onClick={handleLogin}>Login</button>
-//       <button onClick={handleSignUp}>Create Account</button>
-//     </div>
-//   );
-// };
-
-
-
-// import { Navigate } from "react-router-dom";
-// import React, { useEffect, useState } from 'react';
-// import { auth } from '../firebase-config'; // Ensure this path matches the location of your firebase-config file
-// import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-// import { EmailAuthProvider, GoogleAuthProvider, onAuthStateChanged, signOut } from 'firebase/auth'; // Import these here if they're used
-
-// const firebaseUIConfig = {
-//   signInOptions: [
-//     EmailAuthProvider.PROVIDER_ID,
-//     GoogleAuthProvider.PROVIDER_ID,
-//   ],
-//   signInFlow: 'popup',
-//   credentialHelper: 'none',
-//   callbacks: {
-//     signInSuccessWithAuthResult: () => false,
-//   }
-// };
-
-// export default function Login(props) {
-//   const [user, setUser] = useState(null);
-
-//   useEffect(() => {
-//     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-//       if(firebaseUser) {
-//         setUser(firebaseUser);
-//       } else {
-//         setUser(null);
-//       }
-//     });
-
-//     return () => unsubscribe();
-//   }, []);
-
-//   const handleSignOut = () => {
-//     signOut(auth).then(() => {
-//       setUser(null);
-//     }).catch((error) => {
-//       console.error(error);
-//     });
-//   };
-
-//   if (user) {
-//     return <Navigate to="/home" />;
-//   }
-
-//   return (
-//     <div>
-//       <h1>My App</h1>
-//       {user ? (
-//         <div>
-//           <p>Welcome {user.displayName}!</p>
-//           <button onClick={handleSignOut}>Sign out</button>
-//         </div>
-//       ) : (
-//         <div>
-//           <p>Please sign in:</p>
-//           <StyledFirebaseAuth uiConfig={firebaseUIConfig} firebaseAuth={auth} />
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
-
-// import { Navigate } from "react-router-dom";
-// import React, { useEffect, useState } from 'react';
-// import { getAuth, EmailAuthProvider, GoogleAuthProvider, onAuthStateChanged, signOut } from 'firebase/auth'
-// import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-
-// const firebaseUIConfig = {
-//   signInOptions: [
-//     { provider: EmailAuthProvider.PROVIDER_ID, requiredDisplayName: true },
-//     GoogleAuthProvider.PROVIDER_ID,
-//   ],
-//   signInFlow: 'popup',
-//   credentialHelper: 'none',
-//   callbacks: {
-//     signInSuccessWithAuthResult: () => {
-//       return false;
-//     }
-//   }
-// }
-
-// export default function SignInPage(props) {
-//   const auth = getAuth();
-//   const [user, setUser] = useState(null);
-
-//   useEffect(() => {
-//     const logout = onAuthStateChanged(auth, (firebaseUser) => {
-//       if(firebaseUser){
-//         setUser(firebaseUser);
-//       }
-//       else {
-//         setUser(null);
-//       }
-//     });
-
-//     return () => {
-//       logout();
-//     };
-//   }, [auth]);
-
-//   const handleSignOut = () => {
-//     signOut(auth)
-//       .then(() => {
-//         setUser(null);
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   };
-
-//   if (user) {
-//     return <Navigate to="/home" />;
-//   }
-
-
-//   return (
-//     <div>
-//       <h1>My App</h1>
-//       {user ? (
-//         <div>
-//           <p>Welcome {user.displayName}!</p>
-//           <button onClick={handleSignOut}>Sign out</button>
-//         </div>
-//       ) : (
-//         <div>
-//           <p>Please sign in:</p>
-//           <StyledFirebaseAuth uiConfig={firebaseUIConfig} firebaseAuth={auth} />
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
 
