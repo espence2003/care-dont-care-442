@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Modal, Button } from 'react-bootstrap';
+import NavBar from './NavBar';
+import { getAuth } from 'firebase/auth';
+import { getDatabase, ref, push } from 'firebase/database';
 
 const HomePage = () => {
     const [articles, setArticles] = useState([]);
@@ -27,9 +30,28 @@ const HomePage = () => {
         setCurrentIndex(nextIndex);
     };
 
+    // Inside your HomePage component
     const handleCare = () => {
+        const auth = getAuth();
+        const db = getDatabase();
+        const user = auth.currentUser;
+
+        if (user) {
+            const articleToSave = articles[currentIndex];
+            const caresRef = ref(db, `users/${user.uid}/cares`);
+            push(caresRef, articleToSave).then(() => {
+                alert('Article saved!');
+            }).catch((error) => {
+                console.error('Error saving article:', error);
+                alert('Failed to save article.');
+            });
+        } else {
+            alert('You must be logged in to care about articles.');
+        }
+
         setShowModal(true);
     };
+
 
     const handleCloseModal = () => {
         setShowModal(false);
@@ -40,6 +62,8 @@ const HomePage = () => {
     const article = articles[currentIndex];
 
     return (
+        <div>
+          <NavBar />
         <div className="container p-5">
             <h2>Articles</h2>
             <div className="card">
@@ -71,6 +95,7 @@ const HomePage = () => {
                 </Modal.Footer>
             </Modal>
         </div>
+      </div>
     );
 };
 
