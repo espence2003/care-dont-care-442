@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Modal, Button } from 'react-bootstrap';
 import NavBar from './NavBar';
+import Footer from './Footer';
 import { getAuth } from 'firebase/auth';
-import { getDatabase, ref, push } from 'firebase/database';
+import { getDatabase, ref, push, onValue } from 'firebase/database';
 
 const HomePage = () => {
     const [articles, setArticles] = useState([]);
@@ -31,26 +32,68 @@ const HomePage = () => {
     };
 
     // Inside your HomePage component
+    // const handleCare = () => {
+    //     const auth = getAuth();
+    //     const db = getDatabase();
+    //     const user = auth.currentUser;
+
+    //     if (user) {
+    //         const articleToSave = articles[currentIndex];
+    //         const caresRef = ref(db, `users/${user.uid}/cares`);
+    //         push(caresRef, articleToSave).then(() => {
+    //             alert('Article saved!');
+    //         }).catch((error) => {
+    //             console.error('Error saving article:', error);
+    //             alert('Failed to save article.');
+    //         });
+    //     } else {
+    //         alert('You must be logged in to care about articles.');
+    //     }
+
+    //     setShowModal(true);
+    // };
+
     const handleCare = () => {
-        const auth = getAuth();
-        const db = getDatabase();
-        const user = auth.currentUser;
+      const auth = getAuth();
+      const db = getDatabase();
+      const user = auth.currentUser;
 
-        if (user) {
-            const articleToSave = articles[currentIndex];
-            const caresRef = ref(db, `users/${user.uid}/cares`);
-            push(caresRef, articleToSave).then(() => {
-                alert('Article saved!');
-            }).catch((error) => {
-                console.error('Error saving article:', error);
-                alert('Failed to save article.');
-            });
-        } else {
-            alert('You must be logged in to care about articles.');
-        }
+      if (user) {
+          const articleToSave = articles[currentIndex];
+          const caresRef = ref(db, `users/${user.uid}/cares`);
 
-        setShowModal(true);
-    };
+          // Fetch existing cared articles to check for duplicates
+          onValue(caresRef, (snapshot) => {
+              const caresData = snapshot.val();
+              let alreadyCared = false;
+
+              for (let key in caresData) {
+                  if (caresData[key].url === articleToSave.url) {
+                      alreadyCared = true;
+                      break;
+                  }
+              }
+
+              if (!alreadyCared) {
+                  // Save the article if it hasn't been cared for yet
+                  push(caresRef, articleToSave).then(() => {
+                      alert('Article saved!');
+                  }).catch((error) => {
+                      console.error('Error saving article:', error);
+                      alert('Failed to save article.');
+                  });
+              } else {
+                  alert('You have already cared about this article.');
+              }
+          }, {
+              onlyOnce: true // This ensures the listener is only triggered once and then removed
+          });
+      } else {
+          alert('You must be logged in to care about articles.');
+      }
+
+      setShowModal(true);
+  };
 
 
     const handleCloseModal = () => {
@@ -95,6 +138,7 @@ const HomePage = () => {
                 </Modal.Footer>
             </Modal>
         </div>
+        <Footer />
       </div>
     );
 };
