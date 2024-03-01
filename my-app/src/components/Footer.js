@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import 'bootstrap-icons/font/bootstrap-icons.css'; // Import the Bootstrap icons CSS
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const Footer = () => {
   return (

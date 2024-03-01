@@ -15,7 +15,6 @@ const HomePage = () => {
         const fetchArticles = async () => {
             try {
                 const response = await axios.get('https://newsapi.org/v2/top-headlines?country=us&apiKey=1c5ddd160f624d83bb7b1a3ecb08e921');
-                // Filter out articles without images or descriptions
                 const validArticles = response.data.articles.filter(article => article.urlToImage && article.description);
                 setArticles(validArticles);
             } catch (error) {
@@ -31,28 +30,6 @@ const HomePage = () => {
         setCurrentIndex(nextIndex);
     };
 
-    // Inside your HomePage component
-    // const handleCare = () => {
-    //     const auth = getAuth();
-    //     const db = getDatabase();
-    //     const user = auth.currentUser;
-
-    //     if (user) {
-    //         const articleToSave = articles[currentIndex];
-    //         const caresRef = ref(db, `users/${user.uid}/cares`);
-    //         push(caresRef, articleToSave).then(() => {
-    //             alert('Article saved!');
-    //         }).catch((error) => {
-    //             console.error('Error saving article:', error);
-    //             alert('Failed to save article.');
-    //         });
-    //     } else {
-    //         alert('You must be logged in to care about articles.');
-    //     }
-
-    //     setShowModal(true);
-    // };
-
     const handleCare = () => {
       const auth = getAuth();
       const db = getDatabase();
@@ -62,7 +39,6 @@ const HomePage = () => {
           const articleToSave = articles[currentIndex];
           const caresRef = ref(db, `users/${user.uid}/cares`);
 
-          // Fetch existing cared articles to check for duplicates
           onValue(caresRef, (snapshot) => {
               const caresData = snapshot.val();
               let alreadyCared = false;
@@ -75,7 +51,6 @@ const HomePage = () => {
               }
 
               if (!alreadyCared) {
-                  // Save the article if it hasn't been cared for yet
                   push(caresRef, articleToSave).then(() => {
                       alert('Article saved!');
                   }).catch((error) => {
@@ -86,7 +61,7 @@ const HomePage = () => {
                   alert('You have already cared about this article.');
               }
           }, {
-              onlyOnce: true // This ensures the listener is only triggered once and then removed
+              onlyOnce: true
           });
       } else {
           alert('You must be logged in to care about articles.');
@@ -144,71 +119,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
-
-
-
-
-
-// import React, { useState, useEffect } from 'react';
-// // import { useNavigate } from 'react-router-dom';
-// import axios from 'axios';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
-// const HomePage = () => {
-//     const [articles, setArticles] = useState([]);
-//     const [currentIndex, setCurrentIndex] = useState(0);
-//     // const navigate = useNavigate();
-
-//     useEffect(() => {
-//         const fetchArticles = async () => {
-//             try {
-//                 const response = await axios.get('https://newsapi.org/v2/top-headlines', {
-//                     params: {
-//                         country: 'us', // Customize as needed
-//                         apiKey: '1c5ddd160f624d83bb7b1a3ecb08e921' // Replace with your NewsAPI key
-//                     }
-//                 });
-//                 setArticles(response.data.articles);
-//             } catch (error) {
-//                 console.error('Error fetching articles:', error);
-//             }
-//         };
-
-//         fetchArticles();
-//     }, []);
-
-//     const handleDontCare = () => {
-//         const nextIndex = currentIndex + 1 < articles.length ? currentIndex + 1 : 0;
-//         setCurrentIndex(nextIndex);
-//     };
-
-//     const handleCare = () => {
-//         // Implement full article view navigation here
-//         // For example: navigate('/article', { state: { article: articles[currentIndex] } });
-//         console.log('Navigate to full article view');
-//     };
-
-//     if (articles.length === 0) return <div>Loading...</div>;
-
-//     const { title } = articles[currentIndex];
-
-//     return (
-//         <div className="container p-5">
-//             <div className="card">
-//                 <div className="card-body">
-//                     <h5 className="card-title">{title}</h5>
-//                     <button className="btn btn-danger me-2" onClick={handleDontCare}>
-//                         <i className="fas fa-times"></i> Don't Care
-//                     </button>
-//                     <button className="btn btn-success" onClick={handleCare}>
-//                         <i className="fas fa-check"></i> Care
-//                     </button>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default HomePage;
-
