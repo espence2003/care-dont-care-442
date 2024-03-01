@@ -40,10 +40,10 @@ export default function Login() {
     };
 
     return (
-        <div className="container-fluid bg-light py-5 vh-100">
+        <div className="container-fluid bg-dark py-5 vh-100">
             <div className="row justify-content-center mt-5">
                 <div className="col-md-6">
-                    <h1 className="text-center mb-4">Care or Don't Care</h1>
+                    <h1 className="text-center mb-4 care-dont-care">Care or Don't Care</h1>
                     <div className="card shadow">
                         <div className="card-body">
                             <h3 className="card-title text-center mb-4">{isSignUp ? 'Sign Up' : 'Login'}</h3>

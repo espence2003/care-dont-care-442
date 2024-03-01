@@ -38,3 +38,9 @@ body {
 .container-height {
   height: 625px;
 }
+
+.care-dont-care {
+  text-transform: uppercase;
+  color: white;
+  font-size: 4rem;
+}
