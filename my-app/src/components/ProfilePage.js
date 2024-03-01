@@ -59,7 +59,7 @@ const ProfilePage = () => {
     return (
         <div>
             <NavBar />
-            <div className="container mt-5">
+            <div className="container mt-5 container-height">
                 <h1 className="mb-4">{username}'s Profile</h1>
                 <div className="row">
                     {cares.map((article, index) => (

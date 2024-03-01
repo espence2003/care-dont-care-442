@@ -82,7 +82,7 @@ const HomePage = () => {
     return (
         <div>
           <NavBar />
-        <div className="container p-5">
+        <div className="container p-5 container-height">
             <h2>Articles</h2>
             <div className="card">
                 <div className="card-body">

@@ -1,3 +1,10 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
 .card-hover:hover {
   cursor: pointer;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -25,4 +32,9 @@
 .footer-bottom-fixed {
   position: relative;
   bottom: 0;
+  width: 100%;
+}
+
+.container-height {
+  height: 625px;
 }
