@@ -7,7 +7,7 @@ import '../index.css';
 import Footer from './Footer';
 
 const ProfilePage = () => {
-    const [username, setUsername] = useState('');
+    // const [username, setUsername] = useState('');
     const [cares, setCares] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedArticle, setSelectedArticle] = useState(null);
@@ -23,7 +23,7 @@ const ProfilePage = () => {
                 onValue(userRef, (snapshot) => {
                     const data = snapshot.val();
                     if (data) {
-                        setUsername(data.username || 'No username');
+                        // setUsername(data.username || 'No username');
                         const caredArticles = data.cares ? Object.values(data.cares) : [];
                         setCares(caredArticles);
                     } else {
@@ -46,6 +46,7 @@ const ProfilePage = () => {
     const handleShowModal = (article) => {
         setSelectedArticle(article);
         setShowModal(true);
+        console.log(auth)
     };
 
     const handleCloseModal = () => {
@@ -60,7 +61,7 @@ const ProfilePage = () => {
         <div>
             <NavBar />
             <div className="container mt-5 container-height">
-                <h1 className="mb-4">{username}'s Profile</h1>
+                <h1 className="mb-4">{auth.currentUser.displayName}'s Profile</h1>
                 <div className="row">
                     {cares.map((article, index) => (
                         <div key={index} className="col-md-4 mb-4" onClick={() => handleShowModal(article)}>

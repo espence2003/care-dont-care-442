@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { getDatabase, ref, set } from 'firebase/database';
 import { app } from '../firebase-config';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,19 +14,36 @@ export default function Login() {
     const auth = getAuth(app);
     const db = getDatabase(app);
 
+    // const handleSignUp = async () => {
+    //   if (!username.trim()) {
+    //       alert('Username is required');
+    //       return;
+    //   }
+    //   try {
+    //       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    //       await set(ref(db, `users/${userCredential.user.uid}`), { username, email });
+    //       navigate('/home');
+    //   } catch (error) {
+    //       console.error(error);
+    //       alert('Sign Up failed: ' + error.message);
+    //   }
+    // };
+
     const handleSignUp = async () => {
-      if (!username.trim()) {
-          alert('Username is required');
-          return;
-      }
-      try {
-          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-          await set(ref(db, `users/${userCredential.user.uid}`), { username, email });
-          navigate('/home');
-      } catch (error) {
-          console.error(error);
-          alert('Sign Up failed: ' + error.message);
-      }
+        if (!username.trim()) {
+                   alert('Username is required');
+                   return;
+               }
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            await updateProfile(userCredential.user, { displayName: username });
+            await set(ref(db, `users/${userCredential.user.uid}`), { username, email });
+            navigate('/home');
+            console.log(auth)
+        } catch (error) {
+            console.error(error);
+            alert('Sign Up failed: ' + error.message);
+        }
     };
 
     const handleLogin = async () => {
