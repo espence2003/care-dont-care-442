@@ -1,0 +1,98 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: Montserrat !important;
+  font-weight: 600 !important;
+}
+
+
+.card-hover:hover {
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.card-hover {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-title, .card-text {
+  white-space: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 100px;
+}
+
+.footer-bottom-fixed {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.container-height {
+  height: 625px;
+}
+
+.care-dont-care {
+  text-transform: uppercase;
+  color: white;
+  font-size: 4rem;
+  font-family: Bebas Neue;
+}
+
+/*Vera - Added css, Change as needed, sorry for all of the 'important' code :( */
+.login-button {
+  width: 200px;
+  border-radius: 40px;
+  background-color: rgb(21, 16, 74);
+  color: white;
+  height: 40px;
+  font-family: Bebas Neue;
+  font-size: 20px;
+  border: 4px solid rgb(239, 229, 180);
+}
+
+.login-button:hover {
+  background-color: brown;
+}
+
+.login-div {
+  display: flex;
+  justify-content: center;
+}
+
+.login-header {
+  font-family: Bebas Neue;
+  color: rgb(21, 16, 74) !important;
+}
+
+.login-link {
+  color: rgb(198, 42, 11) !important;
+}
+
+.login-link:hover {
+  color: rgb(21, 16, 74) !important;
+}
+
+.nav-styling {
+  background-color: black;
+  height: 100px;
+}
+
+.nav-link {
+  color: white !important;
+}
+
+.navbar-brand {
+  font-family: Bebas Neue;
+  color: white !important;
+  font-size: 40px !important;
+}

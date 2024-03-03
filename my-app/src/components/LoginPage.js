@@ -50,6 +50,7 @@ export default function Login() {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             navigate('/home');
+            console.log(auth)
         } catch (error) {
             console.error(error);
             alert('Login failed: ' + error.message);
@@ -63,7 +64,7 @@ export default function Login() {
                     <h1 className="text-center mb-4 care-dont-care">Care or Don't Care</h1>
                     <div className="card shadow">
                         <div className="card-body">
-                            <h3 className="card-title text-center mb-4">{isSignUp ? 'Sign Up' : 'Login'}</h3>
+                            <h3 className="card-title text-center mb-4 login-header">{isSignUp ? 'Sign Up' : 'Login'}</h3>
                             <form>
                                 {isSignUp && (
                                     <div className="mb-3">
@@ -79,11 +80,11 @@ export default function Login() {
                                     <label htmlFor="password" className="form-label">Password</label>
                                     <input type="password" className="form-control" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" />
                                 </div>
-                                <div className="d-grid gap-2">
+                                <div className="d-grid gap-2 login-div">
                                     {isSignUp ? (
-                                        <button onClick={handleSignUp} className="btn btn-primary" type="button">Sign Up</button>
+                                        <button onClick={handleSignUp} className="btn-primary login-button" type="button">Sign Up</button>
                                     ) : (
-                                        <button onClick={handleLogin} className="btn btn-success" type="button">Login</button>
+                                        <button onClick={handleLogin} className="btn-success login-button" type="button">Login</button>
                                     )}
                                 </div>
                                 <div className="mt-3 text-center">

@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import NavBar from './NavBar';
-import '../index.css';
+// import '../index.css';
 import Footer from './Footer';
 
 const ProfilePage = () => {
