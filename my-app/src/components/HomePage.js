@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import NavBar from './NavBar';
 import Footer from './Footer';
 import { getAuth } from 'firebase/auth';
 import { getDatabase, ref, push, onValue } from 'firebase/database';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import '../index.css'; // Import the CSS styles
 
 const HomePage = () => {
     const [articles, setArticles] = useState([]);
@@ -80,42 +83,75 @@ const HomePage = () => {
     const article = articles[currentIndex];
 
     return (
-        <div>
-          <NavBar />
-        <div className="container p-5 container-height">
-            <h2>Articles</h2>
-            <div className="card">
-                <div className="card-body">
-                    <h5 className="card-title">{article.title}</h5>
-                    <button className="btn btn-danger me-2" onClick={handleDontCare}>Don't Care</button>
-                    <button className="btn btn-success" onClick={handleCare}>Care</button>
-                </div>
-            </div>
-
-            <Modal show={showModal} onHide={handleCloseModal} size="lg">
-                <Modal.Header closeButton>
-                    <Modal.Title>{article.title}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {article.urlToImage && (
-                        <img src={article.urlToImage} alt="Article" className="img-fluid mb-3" />
-                    )}
-                    <p><strong>Published At:</strong> {new Date(article.publishedAt).toLocaleString()}</p>
-                    <p><strong>Author:</strong> {article.author || 'Unknown'}</p>
-                    <p><strong>Description:</strong> {article.description}</p>
-                    <p><strong>Content:</strong> {article.content ? article.content : "Full article content not available. Please visit the source."}</p>
-                    <a href={article.url} target="_blank" rel="noopener noreferrer" className="btn btn-primary">Read full article</a>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseModal}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+      <div style={{backgroundColor: 'black', minHeight: '100vh', color: 'white', padding: '20px'}}>
+      <NavBar />
+      <h1 style={{textAlign: 'center', margin: '20px 0' }}>CARE / DON'T CARE?</h1>
+      <div style={{
+        border: '2px solid white',
+        padding: '0',
+        margin: '0 auto',
+        maxWidth: '800px',
+        borderRadius: '10px'
+      }}>
+        {article.urlToImage && (
+          <img
+            src={article.urlToImage}
+            alt="Article"
+            style={{
+              width: '100%', // make image responsive
+              height: 'auto',
+              display: 'block', // remove bottom margin/spacing
+              maxHeight: '300px', // restrict the image height so everything is visible without scrolling
+              objectFit: 'cover', // ensure the aspect ratio is maintained
+              borderRadius: '10px'
+            }}
+          />
+        )}
+        <h2 style={{ fontSize: '1.5rem', textAlign: 'center', margin: '10px 0', padding: '10px' }}>{article.title}</h2>
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
+          <button
+            className="button-care"
+            onClick={handleCare}
+          >
+            <FontAwesomeIcon icon={faCheckCircle} />
+            <span style={{ marginLeft: '0.5rem' }}>Care</span>
+          </button>
+          <button
+            className="button-dont-care"
+            onClick={handleDontCare}
+          >
+            <FontAwesomeIcon icon={faTimesCircle} />
+            <span style={{ marginLeft: '0.5rem' }}>Don't Care</span>
+          </button>
         </div>
+      </div>
+
+        <Modal show={showModal} onHide={handleCloseModal} size="lg">
+          <Modal.Header closeButton className="white-close-button">
+            <Modal.Title>{article.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className='modal-body'>
+            {article.urlToImage && (
+              <img src={article.urlToImage} alt="Article" className="img-fluid mb-3"
+              style={{
+                width: '100%', // make image responsive
+                height: 'auto',
+                display: 'block', // remove bottom margin/spacing
+                maxHeight: '300px', // restrict the image height so everything is visible without scrolling
+                objectFit: 'cover', // ensure the aspect ratio is maintained
+                borderRadius: '10px'
+              }}/>
+            )}
+            <p><strong>Published At:</strong> {new Date(article.publishedAt).toLocaleString()}</p>
+            <p className="break"><strong>Author:</strong> {article.author || 'Unknown'}</p>
+            <p className="break"><strong>Description:</strong> {article.description}</p>
+            <p className="break"><strong>Content:</strong> {article.content ? article.content : "Full article content not available. Please visit the source."}</p>
+            <a href={article.url} target="_blank" rel="noopener noreferrer" className="btn btn-primary">Read full article</a>
+          </Modal.Body>
+        </Modal>
         <Footer />
       </div>
     );
-};
+  };
 
 export default HomePage;

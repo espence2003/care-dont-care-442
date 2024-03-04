@@ -4,6 +4,8 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, up
 import { getDatabase, ref, set } from 'firebase/database';
 import { app } from '../firebase-config';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../index.css'; // Import the CSS styles
+
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -61,10 +63,10 @@ export default function Login() {
         <div className="container-fluid bg-dark py-5 vh-100">
             <div className="row justify-content-center mt-5">
                 <div className="col-md-6">
-                    <h1 className="text-center mb-4 care-dont-care">Care or Don't Care</h1>
-                    <div className="card shadow">
+                    <h1 className="text-center mb-4 care-dont-care">Care / Don't Care?</h1>
+                    <div className="card">
                         <div className="card-body">
-                            <h3 className="card-title text-center mb-4 login-header">{isSignUp ? 'Sign Up' : 'Login'}</h3>
+                            <h3 className="card-title text-center login-header">{isSignUp ? 'Sign Up' : 'Login'}</h3>
                             <form>
                                 {isSignUp && (
                                     <div className="mb-3">
@@ -82,9 +84,9 @@ export default function Login() {
                                 </div>
                                 <div className="d-grid gap-2 login-div">
                                     {isSignUp ? (
-                                        <button onClick={handleSignUp} className="btn-primary login-button" type="button">Sign Up</button>
+                                        <button onClick={handleSignUp} className="btn-primary login-button login" type="button">Sign Up</button>
                                     ) : (
-                                        <button onClick={handleLogin} className="btn-success login-button" type="button">Login</button>
+                                        <button onClick={handleLogin} className="btn-success login-button login" type="button">Login</button>
                                     )}
                                 </div>
                                 <div className="mt-3 text-center">

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import NavBar from './NavBar';
-// import '../index.css';
+import '../index.css';
 import Footer from './Footer';
 
 const ProfilePage = () => {
@@ -77,19 +77,17 @@ const ProfilePage = () => {
             </div>
             {selectedArticle && (
                 <Modal show={showModal} onHide={handleCloseModal} size="lg">
-                    <Modal.Header closeButton>
+                    <Modal.Header closeButton className="white-close-button">
                         <Modal.Title>{selectedArticle.title}</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
+                    <Modal.Body className='modal-body'>
                         <img src={selectedArticle.urlToImage} alt="Article" className="img-fluid mb-3" />
                         <p><strong>Published At:</strong> {new Date(selectedArticle.publishedAt).toLocaleString()}</p>
-                        <p><strong>Author:</strong> {selectedArticle.author || 'Unknown'}</p>
-                        <p><strong>Description:</strong> {selectedArticle.description}</p>
+                        <p className="break"><strong>Author:</strong> {selectedArticle.author || 'Unknown'}</p>
+                        <p className="break"><strong>Content:</strong> {selectedArticle.content ? selectedArticle.content : "Full article content not available. Please visit the source."}</p>
+                        <p className="break"><strong>Description:</strong> {selectedArticle.description}</p>
                         <a href={selectedArticle.url} target="_blank" rel="noopener noreferrer" className="btn btn-primary">Read full article</a>
                     </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleCloseModal}>Close</Button>
-                    </Modal.Footer>
                 </Modal>
             )}
           <Footer />
