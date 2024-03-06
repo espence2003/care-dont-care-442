@@ -181,5 +181,5 @@ a, a:hover, a:focus, a:active {
 }
 
 .container-height {
-  height: 650px !important;
+  min-height: 600px !important;
 }
