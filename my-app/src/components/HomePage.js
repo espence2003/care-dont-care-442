@@ -91,7 +91,8 @@ const HomePage = () => {
         padding: '0',
         margin: '0 auto',
         maxWidth: '800px',
-        borderRadius: '10px'
+        borderRadius: '10px',
+        height: '580px'
       }}>
         {article.urlToImage && (
           <img

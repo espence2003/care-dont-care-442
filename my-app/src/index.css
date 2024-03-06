@@ -179,3 +179,7 @@ a, a:hover, a:focus, a:active {
   display: block !important; /* This creates a line-break effect after the author */
   margin-bottom: 1rem !important; /* Optional: adds some space after the line break */
 }
+
+.container-height {
+  height: 650px !important;
+}
