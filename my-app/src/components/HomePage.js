@@ -92,7 +92,7 @@ const HomePage = () => {
         margin: '0 auto',
         maxWidth: '800px',
         borderRadius: '10px',
-        height: '580px'
+        height: '520px'
       }}>
         {article.urlToImage && (
           <img
