@@ -7,7 +7,7 @@ import { getAuth } from 'firebase/auth';
 import { getDatabase, ref, push, onValue } from 'firebase/database';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import '../index.css'; // Import the CSS styles
+import '../index.css';
 
 const HomePage = () => {
     const [articles, setArticles] = useState([]);
@@ -98,11 +98,11 @@ const HomePage = () => {
             src={article.urlToImage}
             alt="Article"
             style={{
-              width: '100%', // make image responsive
+              width: '100%',
               height: 'auto',
-              display: 'block', // remove bottom margin/spacing
-              maxHeight: '300px', // restrict the image height so everything is visible without scrolling
-              objectFit: 'cover', // ensure the aspect ratio is maintained
+              display: 'block',
+              maxHeight: '300px',
+              objectFit: 'cover',
               borderRadius: '10px'
             }}
           />
@@ -134,11 +134,11 @@ const HomePage = () => {
             {article.urlToImage && (
               <img src={article.urlToImage} alt="Article" className="img-fluid mb-3"
               style={{
-                width: '100%', // make image responsive
+                width: '100%',
                 height: 'auto',
-                display: 'block', // remove bottom margin/spacing
-                maxHeight: '300px', // restrict the image height so everything is visible without scrolling
-                objectFit: 'cover', // ensure the aspect ratio is maintained
+                display: 'block',
+                maxHeight: '300px',
+                objectFit: 'cover',
                 borderRadius: '10px'
               }}/>
             )}

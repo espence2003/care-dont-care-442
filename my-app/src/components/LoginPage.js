@@ -4,7 +4,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, up
 import { getDatabase, ref, set } from 'firebase/database';
 import { app } from '../firebase-config';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../index.css'; // Import the CSS styles
+import '../index.css';
 
 
 export default function Login() {
@@ -15,21 +15,6 @@ export default function Login() {
     const navigate = useNavigate();
     const auth = getAuth(app);
     const db = getDatabase(app);
-
-    // const handleSignUp = async () => {
-    //   if (!username.trim()) {
-    //       alert('Username is required');
-    //       return;
-    //   }
-    //   try {
-    //       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    //       await set(ref(db, `users/${userCredential.user.uid}`), { username, email });
-    //       navigate('/home');
-    //   } catch (error) {
-    //       console.error(error);
-    //       alert('Sign Up failed: ' + error.message);
-    //   }
-    // };
 
     const handleSignUp = async () => {
         if (!username.trim()) {
