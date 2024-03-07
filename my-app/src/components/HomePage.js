@@ -15,17 +15,19 @@ const HomePage = () => {
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
-        const fetchArticles = async () => {
-            try {
-                const response = await axios.get('https://newsapi.org/v2/top-headlines?country=us&apiKey=1c5ddd160f624d83bb7b1a3ecb08e921');
-                const validArticles = response.data.articles.filter(article => article.urlToImage && article.description);
-                setArticles(validArticles);
-            } catch (error) {
-                console.error('Error fetching articles:', error);
-            }
-        };
+      const api_key = process.env.REACT_APP_API_KEY;
+      const weather_url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${api_key}`;
+      const fetchArticles = async () => {
+          try {
+              const response = await axios.get(weather_url);
+              const validArticles = response.data.articles.filter(article => article.urlToImage && article.description);
+              setArticles(validArticles);
+          } catch (error) {
+              console.error('Error fetching articles:', error);
+          }
+      };
 
-        fetchArticles();
+      fetchArticles();
     }, []);
 
     const handleDontCare = () => {
